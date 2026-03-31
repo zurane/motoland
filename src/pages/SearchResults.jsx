@@ -1,12 +1,14 @@
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import thumbNail from "../assets/DB2021AU00725_web_1600.jpg";
+import CardLoadingSkeleton from "../components/CardLoadingSkeleton.jsx";
 import axios from "axios";
+import TutorialCard from "../components/TutorialCard.jsx";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const manufacturer = searchParams.get("manufacturer");
@@ -18,7 +20,6 @@ const SearchResults = () => {
       try {
         setLoading(true);
         setError("");
-
         const response = await axios.get("http://localhost:3000/search", {
           params: {
             manufacturer,
@@ -26,11 +27,14 @@ const SearchResults = () => {
             issue,
           },
         });
-
+        setIsLoading(true);
         setResults(response.data.data || []);
+        setTimeout ( () =>{
+          setIsLoading(false);
+        }, 2000);
       } catch (err) {
         console.error(err);
-        setError("Something went wrong while loading results.");
+        setError("Something went wrong while loading results. Try again later.");
       } finally {
         setLoading(false);
       }
@@ -44,7 +48,7 @@ const SearchResults = () => {
       <div className="results-container">
         <div className="results-header">
           <h1>
-            Search results for {manufacturer} {model} in {issue} maintenance
+            Search results for {manufacturer} {model} in {issue}
           </h1>
           <p>
             <strong>{manufacturer}</strong>
@@ -62,47 +66,20 @@ const SearchResults = () => {
         )}
 
         {!loading && !error && results.length > 0 && (
-          <article className="results-grid">
-           {results.map((item) => (
-  <div key={item.id} className="result-card">
-    
-    {/* IMAGE */}
-    <a
-                    href={`/tutorials/${item.slug}`}
-                    className="result-link"
-                  >
-    <div className="image-wrapper">
-      <img
-        src={item.imageUrl || thumbNail} // fallback
-        alt={item.title}
-        style={{ width: "100%", display: "block" }}
-      />
-
-      {/* TIME BADGE */}
-      {item.estimatedTimeMinutes && (
-        <span className="result-estimated-time">
-          {item.estimatedTimeMinutes} min
-        </span>
-      )}
-    </div>
-
-    {/* FOOTER */}
-    <div className="card-footer">
-      <h2 className="result-title">{item.title}</h2>
-
-      <div className="result-meta">
-        <span>
-          {item.model?.manufacturer?.name} {item.model?.name}
-        </span>
-
-        <span>
-          {item.difficulty}
-        </span>
-      </div>
-    </div>
-</a>
-  </div>
-))}
+          <article>
+            {isLoading ? (
+              <article className="results-grid">
+                {[...Array(3)].map((_, i) => (
+                  <CardLoadingSkeleton key={i} />
+                ))}
+              </article>
+            ) : (
+              <article className="results-grid">
+                {results.map((item) => (
+                  <TutorialCard key={item.id} item={item} />
+                ))}
+              </article>
+            )}
           </article>
         )}
       </div>
