@@ -9,12 +9,15 @@ const SearchResults = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [getArraySize, setGetArraySize] = useState(0);
   const [error, setError] = useState("");
 
   const manufacturer = searchParams.get("manufacturer");
   const model = searchParams.get("model");
   const issue = searchParams.get("issue");
 
+  
+  
   useEffect(() => {
     const fetchResults = async () => {
       try {
@@ -29,6 +32,8 @@ const SearchResults = () => {
         });
         setIsLoading(true);
         setResults(response.data.data || []);
+        setGetArraySize(response.data.data.length || 0);
+        console.table(response.data.data);
         setTimeout ( () =>{
           setIsLoading(false);
         }, 2000);
@@ -48,7 +53,7 @@ const SearchResults = () => {
       <div className="results-container">
         <div className="results-header">
           <h1>
-            Search results for {manufacturer} {model} in {issue}
+            Results for {manufacturer} {model} in {issue}
           </h1>
           <p>
             <strong>{manufacturer}</strong>
@@ -69,7 +74,7 @@ const SearchResults = () => {
           <article>
             {isLoading ? (
               <article className="results-grid">
-                {[...Array(3)].map((_, i) => (
+                {[...Array(getArraySize)].map((_, i) => (
                   <CardLoadingSkeleton key={i} />
                 ))}
               </article>

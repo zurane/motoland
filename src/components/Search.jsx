@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FiSearch, FiChevronDown, FiChevronRight } from "react-icons/fi";
+import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
 const vehicleData = [
@@ -29,7 +30,7 @@ const vehicleData = [
   },
   {
     brand: "Volkswagen",
-    models: ["Polo", "Golf", "Tiguan"],
+    models: ["Polo", "Golf", "Tiguan", "Polo Vivo"],
   },
   {
     brand: "BMW",
@@ -38,6 +39,10 @@ const vehicleData = [
   {
     brand: "Audi",
     models: ["A3", "A4", "Q5"],
+  },
+  {
+    brand: "Volvo",
+    models: ["S90", "XC90", "XC60", "V90"],
   },
   {
     brand: "Ford",
@@ -90,11 +95,11 @@ export default function VehicleSearch() {
   };
 
   const toggleModel = (brand, model) => {
-     setSelectedModels({
-    [brand]: [model],
-  });
+    setSelectedModels({
+      [brand]: [model],
+    });
 
-      setSearchTerm(`${brand} ${model}`);
+    setSearchTerm(`${brand} ${model}`);
   };
 
   const submitHandler = async () => {
@@ -105,8 +110,12 @@ export default function VehicleSearch() {
 
       if (!openBrand || !selectedModel) return;
 
-      navigate(
-        `/results?manufacturer=${encodeURIComponent(openBrand)}&model=${encodeURIComponent(selectedModel)}&issue=${encodeURIComponent(selectedIssue || "")}`,
+      setTimeout(
+        () => 
+        navigate(
+          `/results?manufacturer=${encodeURIComponent(openBrand)}&model=${encodeURIComponent(selectedModel)}&issue=${encodeURIComponent(selectedIssue || "")}`,
+        ),
+        2000,
       );
     } catch (error) {
       console.error(error);
@@ -225,8 +234,7 @@ export default function VehicleSearch() {
             onClick={submitHandler}
             className="vehicle-search-button"
           >
-            {isSubmitting ? "Searching..." : "Search"}
-            <span className="vehicle-search-arrow">›</span>
+            {isSubmitting ? <ClipLoader size={20} color="#fff" /> : "Search"}
           </button>
         </div>
       </div>

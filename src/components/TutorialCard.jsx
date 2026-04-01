@@ -23,14 +23,25 @@ const TutorialCard = ({ item }) => {
         {/* FOOTER */}
         <div className="card-footer">
           <h2 className="result-title">{item.title}</h2>
-
           <div className="result-meta">
-            <span>
+            <div>
               {item.model &&
                 item.model.manufacturer &&
                 item.model.manufacturer.name}{" "}
               {item.model && item.model.name}
-            </span>
+              <br />
+              <div className="card-chips">
+                <span className="results-meta-type">
+                  {item.model.type && `  ${item.model.type}`} •{" "}
+                  {item.model.modelEngineSize &&
+                    `${item.model.modelEngineSize.toFixed(1)}L`}
+                </span>
+                <span className="model-variant">
+                  {item.model.yearFrom && `${item.model.yearFrom}`}{" "}
+                  {item.model.modelVariant && ` ${item.model.modelVariant}`}
+                </span>
+              </div>
+            </div>
 
             <span>{item.difficulty}</span>
           </div>
