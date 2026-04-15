@@ -1,78 +1,32 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FiSearch, FiChevronDown, FiChevronRight } from "react-icons/fi";
+import axios from "axios";
+import { FiSearch, FiChevronDown } from "react-icons/fi";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
-const vehicleData = [
-  {
-    brand: "Toyota",
-    models: [
-      "Corolla",
-      "RAV4",
-      "Land Cruiser",
-      "Highlander",
-      "Starlet",
-      "Yaris GR",
-      "Hilux",
-    ],
-  },
-  {
-    brand: "Nissan",
-    models: ["Navara", "X-Trail", "Qashqai"],
-  },
-  {
-    brand: "Hyundai",
-    models: ["i20", "Tucson", "Creta"],
-  },
-  {
-    brand: "Honda",
-    models: ["Civic", "CR-V", "Jazz"],
-  },
-  {
-    brand: "Volkswagen",
-    models: ["Polo", "Golf", "Tiguan", "Polo Vivo"],
-  },
-  {
-    brand: "BMW",
-    models: ["320i", "X3", "X5"],
-  },
-  {
-    brand: "Audi",
-    models: ["A3", "A4", "Q5"],
-  },
-  {
-    brand: "Volvo",
-    models: ["S90", "XC90", "XC60", "V90"],
-  },
-  {
-    brand: "Ford",
-    models: ["Ranger", "Everest", "Fiesta"],
-  },
-  {
-    brand: "Haval",
-    models: ["H6", "Jolion", "H9"],
-  },
-];
 
-const issues = [
-  "Engine",
-  "Brake pads",
-  "Oil change",
-  "Battery",
-  "Overheating",
-  "Suspension",
-  "Spark plugs",
-];
+//sample
+// const issues = [
+//   "Engine",
+//   "Brake pads",
+//   "Oil change",
+//   "Battery",
+//   "Overheating",
+//   "Suspension",
+//   "Spark plugs",
+// ];
 
 export default function VehicleSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [vehicleData, setVehicleData] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [openBrand, setOpenBrand] = useState("Toyota");
   const navigate = useNavigate();
   const [selectedModels, setSelectedModels] = useState({
-    Toyota: ["Corolla"],
+
   });
 
   const wrapperRef = useRef(null);
@@ -88,6 +42,32 @@ export default function VehicleSearch() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
+  }, []);
+
+  // Fetch manufacturers and models on component mount to populate the dropdown
+  useEffect(() => {
+    try {
+      const getData = async () => {
+        const response = await axios.get("http://localhost:3000/manufacturers/all");
+        console.log(response.data);
+        setVehicleData(response.data);
+      }
+      getData();
+    } catch (error) {
+      console.error("Error fetching manufacturers:", error);
+    }
+  }, [])
+
+  useEffect(() => {
+    try {
+      const getCategories = async () => {
+        const response = await axios.get("http://localhost:3000/categories/all");
+        setCategories(response.data);
+      }
+      getCategories();
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
   }, []);
 
   const toggleBrand = (brand) => {
@@ -111,10 +91,10 @@ export default function VehicleSearch() {
       if (!openBrand || !selectedModel) return;
 
       setTimeout(
-        () => 
-        navigate(
-          `/results?manufacturer=${encodeURIComponent(openBrand)}&model=${encodeURIComponent(selectedModel)}&issue=${encodeURIComponent(selectedIssue || "")}`,
-        ),
+        () =>
+          navigate(
+            `/results?manufacturer=${encodeURIComponent(openBrand)}&model=${encodeURIComponent(selectedModel)}&issue=${encodeURIComponent(selectedIssue || "")}`,
+          ),
         2000,
       );
     } catch (error) {
@@ -144,19 +124,19 @@ export default function VehicleSearch() {
             {dropdownOpen && (
               <div className="vehicle-dropdown-card">
                 <div className="vehicle-dropdown-scroll">
-                  {vehicleData.map((item) => {
-                    const isOpen = openBrand === item.brand;
-                    const chosen = selectedModels[item.brand] || [];
+                  {vehicleData.data && vehicleData.data.map((item) => {
+                    const isOpen = openBrand === item.name;
+                    const chosen = selectedModels[item.name] || [];
 
                     return (
-                      <div key={item.brand} className="vehicle-brand-block">
+                      <div key={item.id} className="vehicle-brand-block">
                         <div className="vehicle-brand-header">
-                          <h3 className="vehicle-brand-title">{item.brand}</h3>
+                          <h3 className="vehicle-brand-title">{item.name}</h3>
 
                           <button
                             type="button"
                             className="vehicle-models-button"
-                            onClick={() => toggleBrand(item.brand)}
+                            onClick={() => toggleBrand(item.name)}
                           >
                             Models
                             <span
@@ -170,18 +150,17 @@ export default function VehicleSearch() {
                         {isOpen && (
                           <div className="vehicle-models-panel">
                             {item.models.map((model) => {
-                              const checked = chosen.includes(model);
-
+                              const checked = chosen.includes(model.name);
                               return (
                                 <label
-                                  key={model}
+                                  key={model.id}
                                   className="vehicle-model-row"
                                 >
                                   <input
                                     type="checkbox"
                                     checked={checked}
                                     onChange={() =>
-                                      toggleModel(item.brand, model)
+                                      toggleModel(item.name, model.name)
                                     }
                                     className="vehicle-hidden-checkbox"
                                   />
@@ -199,7 +178,7 @@ export default function VehicleSearch() {
                                     )}
                                   </span>
                                   <span className="vehicle-model-label">
-                                    {model}
+                                    {model.name}
                                   </span>
                                 </label>
                               );
@@ -221,9 +200,9 @@ export default function VehicleSearch() {
               className="vehicle-issue-select"
             >
               <option value="">Select your issue</option>
-              {issues.map((issue) => (
-                <option key={issue} value={issue}>
-                  {issue}
+              {categories && categories.map((issue) => (
+                <option className="options-dropdown" key={issue.id} value={issue.name}>
+                  {issue.name}
                 </option>
               ))}
             </select>

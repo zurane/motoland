@@ -1,5 +1,5 @@
-import thumbNail from "../assets/DB2021AU00725_web_1600.jpg";
-
+import thumbNail from "../assets/vw-polo.jpg";
+import logo from "../assets/vw-logo.png";
 const TutorialCard = ({ item }) => {
   return (
     <div key={item.id} className="result-card">
@@ -13,11 +13,10 @@ const TutorialCard = ({ item }) => {
           />
 
           {/* TIME BADGE */}
-          {item.estimatedTimeMinutes && (
-            <span className="result-estimated-time">
-              {item.estimatedTimeMinutes} min
-            </span>
-          )}
+
+          <span className="result-logo">
+            <img src={item.logoImageUrl || logo} alt="brand logo" />
+          </span>
         </div>
 
         {/* FOOTER */}
@@ -42,9 +41,11 @@ const TutorialCard = ({ item }) => {
                 </span>
               </div>
             </div>
-
-            <span>{item.difficulty}</span>
           </div>
+          <span className="small">
+            {" "}
+            {item.difficulty} Level • {item.estimatedTimeMinutes} min
+          </span>
         </div>
       </a>
     </div>
