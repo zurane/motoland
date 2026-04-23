@@ -90,7 +90,7 @@ const SearchResults = () => {
           <span className="search-results-count">({getArraySize}) results</span>
           <button
             onClick={toggleFiltersHandler}
-            className="filter-results-btn align-center flex gap-2"
+            className="filter-results-btn align-center flex gap-2 "
           >
             <PiFadersHorizontal size={24} />
             <span>Filters</span>

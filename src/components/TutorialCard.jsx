@@ -1,10 +1,22 @@
 import thumbNail from "../assets/vw-polo.jpg";
 import logo from "../assets/vw-logo.png";
+import { Link } from "react-router-dom";
+
 const TutorialCard = ({ item }) => {
+  const searchParams = new URLSearchParams({
+    tutorialId: String(item.id),
+    model: item.model?.name || "",
+    slug: item.slug || "",
+  });
+
   return (
     <div key={item.id} className="result-card">
       {/* IMAGE */}
-      <a href={`/tutorials/${item.slug}`} className="result-link">
+      <Link
+        to={`/tutorials?${searchParams.toString()}`}
+        state={{ tutorial: item }}
+        className="result-link"
+      >
         <div className="image-wrapper">
           <img
             src={item.imageUrl || thumbNail}
@@ -19,7 +31,7 @@ const TutorialCard = ({ item }) => {
           </span>
         </div>
 
-        {/* FOOTER */}
+        {/* CARD FOOTER */}
         <div className="card-footer">
           <h2 className="result-title">{item.title}</h2>
           <div className="result-meta">
@@ -47,7 +59,7 @@ const TutorialCard = ({ item }) => {
             {item.difficulty} Level • {item.estimatedTimeMinutes} min
           </span>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };
