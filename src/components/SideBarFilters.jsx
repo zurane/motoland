@@ -1,4 +1,7 @@
 import { IoIosClose } from "react-icons/io";
+import { PiCaretDownLight, PiCaretUpLight } from "react-icons/pi";
+
+
 
 const SideBarFilters = (props) => {
   return (
@@ -11,15 +14,22 @@ const SideBarFilters = (props) => {
           </button>
         </div>
         <div className="model-filters-section-body">
-          <div>
+          <div className="filter-category-wrapper">
             <h4>Model Year</h4>
+            <button><PiCaretDownLight /></button>
           </div>
-          <div>
-            <h4>Model Type</h4>
+          <div className="filter-category-wrapper">
+            <h4>Body Type</h4>
+            <button><PiCaretDownLight /></button>
           </div>
-          <div>
-            <h4>Engine Capacity</h4>
+          <div className="filter-category-wrapper">
+            <h4>Min Engine Capacity</h4>
+            <button><PiCaretDownLight /></button>
           </div>
+        </div>
+        <div className="sidebar-filters-footer">
+          <button className="clear-filters-btn">Clear Filters</button>
+          <button className="apply-filters-btn">Apply Filters</button>
         </div>
       </div>
     </div>
