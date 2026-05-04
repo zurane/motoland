@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PiArrowLeftLight } from "react-icons/pi";
+import CustomVideoPlayer from "../components/VideoPlayer";
 import axios from "axios";
 
 
@@ -67,47 +68,47 @@ const Tutorial = () => {
                         <PiArrowLeftLight size={24} />
                     </Link>
                 </span>
-                    </div>
-                {
-                    tutorialData ? (
-                        <div className="tutorial-content-card max-w-6xl mx-auto bg-white shadow-md">
-                            <div className="video-wrapperbg-black">
-                                <iframe src="https://www.youtube.com/embed/9nq0id5ZSqQ" frameborder="0" width="100%" height="500px" allowFullScreen></iframe>
-                            </div>
-                            <div className="tutorial-details bg-white line-height-1.7">
-                                <div className="mb-3 border-b border-gray-200 py-5 px-5">
-                                    <h2 className="text-2xl font-semibold my-2">{tutorialData?.title || "Tutorial Title"}</h2>
-                                    <p >{tutorialData.model.manufacturer?.name} {tutorialData?.model?.name}</p>
-                                    <div className="card-chips my-2">
-                                        <span className="results-meta-type">
-                                            {tutorialData.model.type && `  ${tutorialData.model.type}`} •{" "}
-                                            {tutorialData.model.modelEngineSize &&
-                                                `${tutorialData.model.modelEngineSize.toFixed(1)}L`}
-                                        </span>
-                                        <span className="model-variant">
-                                            {tutorialData.model.yearFrom && `${tutorialData.model.yearFrom}`}{" "}
-                                            {tutorialData.model.modelVariant && ` ${tutorialData.model.modelVariant}`}
-                                        </span>
-                                    </div>
-                                    <span className="small my-5">
-                                        {" "}
-                                        {tutorialData.difficulty} Level • {tutorialData.estimatedTimeMinutes} min
+            </div>
+            {
+                tutorialData ? (
+                    <div className="tutorial-content-card max-w-6xl mx-auto bg-white shadow-md">
+                        <div className="video-wrapper bg-black">
+                            <CustomVideoPlayer />
+                        </div>
+                        <div className="tutorial-details rounded-md bg-white line-height-1.7">
+                            <div className="mb-3 border-b border-gray-200 py-5 px-5">
+                                <h2 className="text-2xl font-semibold my-2">{tutorialData?.title || "Tutorial Title"}</h2>
+                                <p >{tutorialData.model.manufacturer?.name} {tutorialData?.model?.name}</p>
+                                <div className="card-chips my-2">
+                                    <span className="results-meta-type">
+                                        {tutorialData.model.type && `  ${tutorialData.model.type}`} •{" "}
+                                        {tutorialData.model.modelEngineSize &&
+                                            `${tutorialData.model.modelEngineSize.toFixed(1)}L`}
+                                    </span>
+                                    <span className="model-variant">
+                                        {tutorialData.model.yearFrom && `${tutorialData.model.yearFrom}`}{" "}
+                                        {tutorialData.model.modelVariant && ` ${tutorialData.model.modelVariant}`}
                                     </span>
                                 </div>
-                                <div className="pt-1 pb-5 px-5 border-b border-gray-200 mb-5">
-                                    <h3 className="font-semibold">Description</h3>
-                                    <p className="text-gray-600 description">{tutorialData?.description || "Tutorial description goes here. This is a placeholder description for the tutorial."}</p>
-                                </div>
+                                <span className="small my-5">
+                                    {" "}
+                                    {tutorialData.difficulty} Level • {tutorialData.estimatedTimeMinutes} min
+                                </span>
+                            </div>
+                            <div className="pt-1 pb-5 px-5 border-b border-gray-200 mb-5">
+                                <h3 className="font-semibold">Description</h3>
+                                <p className="text-gray-600 description">{tutorialData?.description || "Tutorial description goes here. This is a placeholder description for the tutorial."}</p>
                             </div>
                         </div>
-                    ) : (
-                        <div className="error-message bg-red-100 text-red-700 p-4 rounded">
-                            {error || "Loading tutorial..."}
-                        </div>
-                    )
-                }
-            </div>
-        
+                    </div>
+                ) : (
+                    <div className="error-message bg-red-100 text-red-700 p-4 rounded">
+                        {error || "Loading tutorial..."}
+                    </div>
+                )
+            }
+        </div>
+
     )
 }
 
