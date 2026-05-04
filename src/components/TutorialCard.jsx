@@ -1,20 +1,22 @@
 import thumbNail from "../assets/vw-polo.jpg";
 import logo from "../assets/vw-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const TutorialCard = ({ item }) => {
+  const location = useLocation();
   const searchParams = new URLSearchParams({
     tutorialId: String(item.id),
     model: item.model?.name || "",
     slug: item.slug || "",
   });
+  const previousUrl = `${location.pathname}${location.search}${location.hash}`;
 
   return (
     <div key={item.id} className="result-card">
       {/* IMAGE */}
       <Link
         to={`/tutorials?${searchParams.toString()}`}
-        state={{ tutorial: item }}
+        state={{ tutorial: item, previousUrl }}
         className="result-link"
       >
         <div className="image-wrapper">

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
+import { PiArrowLeftLight } from "react-icons/pi";
 import axios from "axios";
 
 
@@ -9,11 +10,12 @@ const Tutorial = () => {
     const [error, setError] = useState("");
     const [searchParams] = useSearchParams();
     const location = useLocation();
+    const previousUrl = location.state?.previousUrl || "/";
     const { tutorialId: pathTutorialId } = useParams();
     const tutorialId = searchParams.get("tutorialId") || pathTutorialId;
     const model = searchParams.get("model");
     const slug = searchParams.get("slug");
-   
+
     useEffect(() => {
         const getTutorialData = async () => {
             try {
@@ -32,11 +34,12 @@ const Tutorial = () => {
                 }
 
                 const response = await axios.get("http://localhost:3000/search");
+                console.log(response.data);
                 const tutorials = response.data?.data || [];
-                const matchedTutorial = tutorials.find((item) => {
-                    const matchesId = tutorialId && String(item.id) === String(tutorialId);
-                    const matchesSlug = slug && item.slug === slug;
-                    const matchesModel = !model || item.model?.name === model;
+                const matchedTutorial = tutorials.find((tutorialData) => {
+                    const matchesId = tutorialId && String(tutorialData.id) === String(tutorialId);
+                    const matchesSlug = slug && tutorialData.slug === slug;
+                    const matchesModel = !model || tutorialData.model?.name === model;
 
                     return (matchesId || matchesSlug) && matchesModel;
                 });
@@ -57,22 +60,54 @@ const Tutorial = () => {
         getTutorialData();
     }, [location.state, tutorialId, model, slug]);
     return (
-        <div className="tutorial">
-            <p>Welcome to Motoland! This tutorial will guide you through the process of using our platform to find solutions for your motorcycle issues.</p>
-            <div className="tutorial-content">
-                {error ? (
-                    <p>{error}</p>
-                ) : tutorialData ? (
-                    <div>
-                        <h2>{tutorialData.title}</h2>
-                        <p>{tutorialData.description}</p>
-                        {/* You can add more details about the tutorial here */}
+        <div className="tutorial-page-header">
+            <div className="max-w-6xl mx-auto py-8">
+                <span className="bg-[#49D4C6] p-2 rounded-full mb-5 inline-block">
+                    <Link to={previousUrl} className="text-black">
+                        <PiArrowLeftLight size={24} />
+                    </Link>
+                </span>
                     </div>
-                ) : (
-                    <p>Loading tutorial data...</p>
-                )}
+                {
+                    tutorialData ? (
+                        <div className="tutorial-content-card max-w-6xl mx-auto bg-white shadow-md">
+                            <div className="video-wrapperbg-black">
+                                <iframe src="https://www.youtube.com/embed/9nq0id5ZSqQ" frameborder="0" width="100%" height="500px" allowFullScreen></iframe>
+                            </div>
+                            <div className="tutorial-details bg-white line-height-1.7">
+                                <div className="mb-3 border-b border-gray-200 py-5 px-5">
+                                    <h2 className="text-2xl font-semibold my-2">{tutorialData?.title || "Tutorial Title"}</h2>
+                                    <p >{tutorialData.model.manufacturer?.name} {tutorialData?.model?.name}</p>
+                                    <div className="card-chips my-2">
+                                        <span className="results-meta-type">
+                                            {tutorialData.model.type && `  ${tutorialData.model.type}`} •{" "}
+                                            {tutorialData.model.modelEngineSize &&
+                                                `${tutorialData.model.modelEngineSize.toFixed(1)}L`}
+                                        </span>
+                                        <span className="model-variant">
+                                            {tutorialData.model.yearFrom && `${tutorialData.model.yearFrom}`}{" "}
+                                            {tutorialData.model.modelVariant && ` ${tutorialData.model.modelVariant}`}
+                                        </span>
+                                    </div>
+                                    <span className="small my-5">
+                                        {" "}
+                                        {tutorialData.difficulty} Level • {tutorialData.estimatedTimeMinutes} min
+                                    </span>
+                                </div>
+                                <div className="pt-1 pb-5 px-5 border-b border-gray-200 mb-5">
+                                    <h3 className="font-semibold">Description</h3>
+                                    <p className="text-gray-600 description">{tutorialData?.description || "Tutorial description goes here. This is a placeholder description for the tutorial."}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="error-message bg-red-100 text-red-700 p-4 rounded">
+                            {error || "Loading tutorial..."}
+                        </div>
+                    )
+                }
             </div>
-        </div>
+        
     )
 }
 

@@ -5,17 +5,6 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
 
-//sample
-// const issues = [
-//   "Engine",
-//   "Brake pads",
-//   "Oil change",
-//   "Battery",
-//   "Overheating",
-//   "Suspension",
-//   "Spark plugs",
-// ];
-
 export default function VehicleSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);

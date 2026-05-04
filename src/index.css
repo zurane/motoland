@@ -6,10 +6,9 @@
 }
 
 .vehicle-search-hero {
-  background: #1f7180;
+  background: #49d4c6;
   padding: 0 0 120px 0;
   position: relative;
-
 }
 
 .vehicle-search-heading {
@@ -34,13 +33,12 @@
   min-height: 50vh;
   justify-content: center;
   align-content: center;
-
 }
 
 .vehicle-search-input-wrap {
   display: flex;
   align-items: center;
-  background: #f7f7f7;
+  background: #ffffff;
   padding: 0 20px;
   height: 74px;
   position: relative;
@@ -172,7 +170,7 @@
 }
 
 .vehicle-issue-wrap {
-  background: #f7f7f7;
+  background: #ffffff;
   border-left: 1px solid #e5e5e5;
   height: 74px;
   display: flex;
@@ -191,15 +189,13 @@
   color: #111;
 }
 
-
-
 .vehicle-search-button {
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: #ffffff;
   font-size: 22px;
   font-weight: 600;
-  background: linear-gradient(#63C8DF, #47ABC2);
+  background: #000000;
   border-radius: 0px 10px 10px 0px;
 }
 
@@ -207,7 +203,6 @@
   display: inline-block;
   margin-left: 4px;
 }
-
 
 /* Results page */
 .results-page {
@@ -327,7 +322,6 @@
   color: #52636a;
 }
 
-
 .result-meta,
 .result-time,
 .result-description {
@@ -337,15 +331,11 @@
   line-height: 1.5;
 }
 
-
 .result-link {
   text-decoration: none;
 }
 
-
 /* Sidebar Filters */
-
-
 
 .filter-category-wrapper {
   border-bottom: 1px solid #f3f3f3;
@@ -369,7 +359,6 @@
   padding: 10px;
 }
 
-
 @media (max-width: 900px) {
   .results-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -390,10 +379,7 @@
 
 /* Skeleton base */
 .skeleton {
-  background: linear-gradient(90deg,
-      #e0e0e0 25%,
-      #f2f2f2 50%,
-      #e0e0e0 75%);
+  background: linear-gradient(90deg, #e0e0e0 25%, #f2f2f2 50%, #e0e0e0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.8s infinite;
   border-radius: 6px;
@@ -442,7 +428,6 @@
 .skeleton-card {
   pointer-events: none;
 }
-
 
 /* Search Filters */
 
@@ -518,21 +503,20 @@
   cursor: pointer;
 }
 
-
 .apply-filters-btn {
-  background: linear-gradient(#63C8DF, #47ABC2);
-  color: #fff;
+  background: #000000;
+  color: #ffffff;
   border: none;
   padding: 10px 30px;
   font-size: 15px;
-  font-weight: 600 ;
+  font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .clear-filters-btn {
   font-weight: 600;
-  padding-bottom: 2px;
+  padding-bottom: 1px;
 }
 
 .clear-filters-btn:hover {
@@ -543,4 +527,30 @@
 .search-results-count {
   font-size: 15px;
   color: #7e7e7e;
+}
+
+/* Tutorial Page */
+.tutorial-page-header {
+  background: #03110f;
+  position: relative;
+}
+
+.tutorial-content-card {
+  width: calc(100% - 24px);
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr 0px;
+  overflow: visible;
+  transform: translateY(25%);
+  justify-content: center;
+  align-content: center;
+}
+
+/* Tutorial card right */
+.tutorial-details h2 {
+  color: #00779b;
+}
+
+.tutorial-details .description {
+  margin-top: 2px;
+  font-size: 15px;
 }

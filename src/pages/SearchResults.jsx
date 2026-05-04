@@ -43,7 +43,6 @@ const SearchResults = () => {
         setIsLoading(true);
         setResults(response.data.data || []);
         setGetArraySize(response.data.data.length || 0);
-        console.table(response.data.data);
         setTimeout(() => {
           setIsLoading(false);
         }, 2000);
