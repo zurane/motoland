@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import logo from "../assets/vw-logo.png";
 import { Link } from "react-router-dom";
-import { PiArrowLeftLight } from "react-icons/pi";
+import { PiArrowLeftLight, PiShareFatLight } from "react-icons/pi";
+import { LuBookmark, LuShare } from "react-icons/lu";
 import CustomVideoPlayer from "../components/VideoPlayer";
 import axios from "axios";
 
@@ -76,7 +78,22 @@ const Tutorial = () => {
                             <CustomVideoPlayer />
                         </div>
                         <div className="tutorial-details rounded-md bg-white line-height-1.7">
-                            <div className="mb-3 border-b border-gray-200 py-5 px-5">
+                            <div className="card-header border-b border-gray-200 mb-3 flex flex-row items-center justify-between py-5 px-5 ">
+                                <div>
+                                    <img src={tutorialData?.logoUrl || logo} alt="manufacturer Logo" className="w-12 h-12 object-contain" />
+                                </div>
+                                <div>
+                                    <button className="bg-gray-100 p-3 rounded-full mr-3">
+                                        <LuShare size={20} />
+                                    </button>
+                                    <button className="bg-gray-100 p-3 rounded-full">
+                                        <LuBookmark size={20} />
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div className="mb-3 border-b border-gray-200 pb-5 px-5">
+
                                 <h2 className="text-2xl font-semibold my-2">{tutorialData?.title || "Tutorial Title"}</h2>
                                 <p >{tutorialData.model.manufacturer?.name} {tutorialData?.model?.name}</p>
                                 <div className="card-chips my-2">
@@ -90,7 +107,7 @@ const Tutorial = () => {
                                         {tutorialData.model.modelVariant && ` ${tutorialData.model.modelVariant}`}
                                     </span>
                                 </div>
-                                <span className="small my-5">
+                                <span className="small my-6">
                                     {" "}
                                     {tutorialData.difficulty} Level • {tutorialData.estimatedTimeMinutes} min
                                 </span>

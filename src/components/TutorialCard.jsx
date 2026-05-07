@@ -27,12 +27,10 @@ const TutorialCard = ({ item }) => {
           />
 
           {/* TIME BADGE */}
-
           <span className="result-logo">
             <img src={item.logoImageUrl || logo} alt="brand logo" />
           </span>
         </div>
-
         {/* CARD FOOTER */}
         <div className="card-footer">
           <h2 className="result-title">{item.title}</h2>
