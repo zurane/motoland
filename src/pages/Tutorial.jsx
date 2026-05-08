@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import logo from "../assets/vw-logo.png";
 import { Link } from "react-router-dom";
 import { PiArrowLeftLight, PiShareFatLight } from "react-icons/pi";
 import { LuBookmark, LuShare } from "react-icons/lu";
@@ -80,7 +79,7 @@ const Tutorial = () => {
                         <div className="tutorial-details rounded-md bg-white line-height-1.7">
                             <div className="card-header border-b border-gray-200 mb-3 flex flex-row items-center justify-between py-5 px-5 ">
                                 <div>
-                                    <img src={tutorialData?.logoUrl || logo} alt="manufacturer Logo" className="w-12 h-12 object-contain" />
+                                    <img src={tutorialData?.model.manufacturer?.logoUrl} alt="manufacturer Logo" className="w-14 h-14 object-contain" />
                                 </div>
                                 <div>
                                     <button className="bg-gray-100 p-3 rounded-full mr-3">

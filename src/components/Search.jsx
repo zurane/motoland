@@ -94,8 +94,8 @@ export default function VehicleSearch() {
   return (
     <div className="vehicle-search-page">
       <div className="vehicle-search-hero">
-        {/* <h1 className="vehicle-search-heading">Fix the small things</h1> */}
-        <div className="vehicle-search-bar">
+        <div className="vehicle-search-content">
+          <div className="vehicle-search-bar">
           <div className="vehicle-search-input-wrap" ref={wrapperRef}>
             <span className="vehicle-search-icon">
               <FiSearch />
@@ -197,13 +197,14 @@ export default function VehicleSearch() {
             </select>
           </div>
 
-          <button
-            type="button"
-            onClick={submitHandler}
-            className="vehicle-search-button"
-          >
-            {isSubmitting ? <ClipLoader size={20} color="#fff" /> : "Search"}
-          </button>
+            <button
+              type="button"
+              onClick={submitHandler}
+              className="vehicle-search-button"
+            >
+              {isSubmitting ? <ClipLoader size={20} color="#fff" /> : "Search"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

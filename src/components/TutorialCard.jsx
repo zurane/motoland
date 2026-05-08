@@ -28,7 +28,7 @@ const TutorialCard = ({ item }) => {
 
           {/* TIME BADGE */}
           <span className="result-logo">
-            <img src={item.logoImageUrl || logo} alt="brand logo" />
+            <img src={item.model.manufacturer?.logoUrl || logo} alt="brand logo" className=" rounded-full" />
           </span>
         </div>
         {/* CARD FOOTER */}
