@@ -1,5 +1,4 @@
 import thumbNail from "../assets/vw-polo.jpg";
-import logo from "../assets/vw-logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 const TutorialCard = ({ item }) => {
@@ -28,7 +27,7 @@ const TutorialCard = ({ item }) => {
 
           {/* TIME BADGE */}
           <span className="result-logo">
-            <img src={item.model.manufacturer?.logoUrl || logo} alt="brand logo" className=" rounded-full" />
+            <img src={item.model.manufacturer?.logoUrl} alt="brand logo" className=" rounded-full" />
           </span>
         </div>
         {/* CARD FOOTER */}

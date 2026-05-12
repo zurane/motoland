@@ -9,7 +9,7 @@
   background: #49d4c6;
   background-image: url("https://res.cloudinary.com/dcphsyjhi/image/upload/v1778245386/mechanic_nxuyvd.jpg");
   background-position: center;
-  background-size: cover ;
+  background-size: cover;
   padding: 0 0 120px 0;
   position: relative;
 }
@@ -309,7 +309,7 @@
   font-size: 11.2px;
   color: #52636a;
   background: #eeeeee;
-  padding: 5px 8px;
+  padding: 5px 10px;
 }
 
 .model-variant {
@@ -534,18 +534,17 @@
 
 /* Tutorial Page */
 .tutorial-page-header {
-  background: #03110f;
+  background: #ffffff;
+
   position: relative;
 }
 
 .tutorial-content-card {
   width: calc(100% - 24px);
-  display: grid;
-  grid-template-columns: 1.6fr 0.8fr 0px;
   overflow: visible;
-  transform: translateY(25%);
   justify-content: center;
   align-content: center;
+  border-radius: 10px;
 }
 
 /* Tutorial card right */
