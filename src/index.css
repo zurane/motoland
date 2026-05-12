@@ -541,7 +541,7 @@
 
 .tutorial-content-card {
   width: calc(100% - 24px);
-  overflow: visible;
+  overflow: hidden;
   justify-content: center;
   align-content: center;
   border-radius: 10px;

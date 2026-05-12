@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import CardLoadingSkeleton from "../components/CardLoadingSkeleton.jsx";
+import TutorialCardSkeleton from "../components/TutorialCardSkeleton.jsx";
 import { PiFadersHorizontal } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -101,7 +101,7 @@ const SearchResults = () => {
             {isLoading ? (
               <article className="results-grid">
                 {[...Array(getArraySize)].map((_, i) => (
-                  <CardLoadingSkeleton key={i} />
+                  <TutorialCardSkeleton key={i} />
                 ))}
               </article>
             ) : (

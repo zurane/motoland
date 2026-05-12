@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PiArrowLeftLight, PiShareFatLight } from "react-icons/pi";
-import { LuBookmark, LuShare, LuClock1, LuStar, LuEye } from "react-icons/lu";
+import { LuBookmark, LuShare, LuClock1, LuStar, LuEye, LuThumbsUp, LuThumbsDown } from "react-icons/lu";
 import CustomVideoPlayer from "../components/VideoPlayer";
+import TutorialCardSkeleton from "../components/TutorialCardSkeleton";
 import axios from "axios";
 
 
@@ -92,11 +93,11 @@ const Tutorial = () => {
                                 </div>
 
                             </div>
-                            <div className="mb-3 pb-5 px-5">
+                            <div className="mb-1 pb-5 px-5">
 
                                 <h2 className="text-2xl font-semibold my-2">{tutorialData?.title || "Tutorial Title"}</h2>
                                 <p className="text-gray-600 description">{tutorialData?.description || "Tutorial description goes here. This is a placeholder description for the tutorial."}</p>
-                                <div className="card-chips  my-4">
+                                <div className="card-chips my-4">
                                     <span className="results-meta-type rounded-full">
                                         {tutorialData.model.type && `  ${tutorialData.model.type}`} •{" "}
                                         {tutorialData.model.modelEngineSize &&
@@ -108,19 +109,29 @@ const Tutorial = () => {
                                     </span>
                                 </div>
 
-                                <div className="metadata mt-6 grid grid-cols-3 justify-between gap-5 text-gray-600">
+                                <div className="mt-6 grid grid-cols-3 justify-between gap-5 text-gray-600">
                                     <div className="bg-gray-100 px-4 py-2 rounded text-sm">Duration <p className="flex items-center gap-1 mt-1 font-semibold"><LuClock1 className="inline" />{tutorialData.estimatedTimeMinutes} min</p></div>
                                     <div className="bg-gray-100 px-4 py-2 rounded text-sm">Level <p className="flex items-center gap-1 mt-1 font-semibold"><LuStar className="inline" />{tutorialData.difficulty}</p></div>
                                     <div className="bg-gray-100 px-4 py-2 rounded text-sm">Views <p className="flex items-center gap-1 mt-1 font-semibold"><LuEye className="inline" />{tutorialData.viewCount || 0} </p></div>
                                 </div>
-
                             </div>
-
+                            <div className="px-5 border-t border-gray-200 py-3">
+                            <p className="text-sm">Was this helpful?</p>
+                            <div className="flex items-center gap-3 mt-2">
+                                <button className="flex items-center gap-1 bg-gray-100 p-3 rounded-full">
+                                    <LuThumbsUp />
+                                </button>
+                                <button className="flex items-center gap-1 bg-gray-100 p-3 rounded-full">
+                                    <LuThumbsDown />
+                                </button>
+                            </div>
                         </div>
+                        </div>
+                        
                     </div>
                 ) : (
                     <div className="error-message bg-red-100 text-red-700 p-4 rounded">
-                        {error || "Loading tutorial..."}
+                        {error || <TutorialCardSkeleton />}
                     </div>
                 )
             }
