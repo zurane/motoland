@@ -412,13 +412,14 @@
 }
 
 .skeleton-text.short {
-  width: 50%;
+  width: 30%;
   height: 14px;
 }
 
 .skeleton-text.tiny {
   width: 30%;
   height: 14px;
+  margin-bottom: 10px;
 }
 
 .skeleton-badge {
@@ -534,8 +535,8 @@
 
 /* Tutorial Page */
 .tutorial-page-header {
-  background: #ffffff;
-
+  background: #1F416F;
+  height: 508px !important;
   position: relative;
 }
 
@@ -555,4 +556,88 @@
 .tutorial-details .description {
   margin-top: 2px;
   font-size: 14.3px;
+}
+
+.tutorial-detail-skeleton .video-wrapper {
+  background: #0f172a;
+}
+
+.skeleton-detail-video {
+  width: 100%;
+  min-height: 378px;
+  border-radius: 0;
+}
+
+.tutorial-detail-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.tutorial-detail-brand {
+  width: 180px;
+  height: 16px;
+}
+
+.tutorial-detail-action {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.skeleton-detail-title {
+  width: 72%;
+  height: 32px;
+  margin: 8px 0 12px;
+}
+
+.skeleton-detail-description {
+  width: 100%;
+  height: 14px;
+  margin-bottom: 10px;
+}
+
+.skeleton-detail-description.short {
+  width: 82%;
+}
+
+.tutorial-detail-chip {
+  width: 126px;
+  height: 26px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.tutorial-detail-chip.variant {
+  width: 148px;
+}
+
+.tutorial-detail-stat {
+  min-height: 72px;
+}
+
+.tutorial-detail-stat-label {
+  width: 45%;
+  height: 12px;
+  margin-bottom: 10px;
+}
+
+.tutorial-detail-stat-value {
+  width: 72%;
+  height: 16px;
+}
+
+.tutorial-detail-helpful-label {
+  width: 110px;
+  height: 12px;
+}
+
+.tutorial-detail-feedback {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  display: inline-block;
 }

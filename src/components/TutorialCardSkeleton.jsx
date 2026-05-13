@@ -17,8 +17,11 @@ const TutorialCardSkeleton = () => {
 
         <div className="result-meta">
           <div style={{ width: "100%" }}>
-            <div className="skeleton skeleton-text short" />
             <div className="skeleton skeleton-text tiny" />
+            <div className="flex items-center gap-2.5">
+              <div className="skeleton skeleton-text short" /><div className="skeleton skeleton-text short" />
+            </div>
+            
           </div>
         </div>
 

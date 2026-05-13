@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { PiArrowLeftLight, PiShareFatLight } from "react-icons/pi";
+import { PiArrowLeftLight } from "react-icons/pi";
 import { LuBookmark, LuShare, LuClock1, LuStar, LuEye, LuThumbsUp, LuThumbsDown } from "react-icons/lu";
 import CustomVideoPlayer from "../components/VideoPlayer";
-import TutorialCardSkeleton from "../components/TutorialCardSkeleton";
+import TutorialDetailCard from "../components/TutorialDetailCard";
 import axios from "axios";
 
 
@@ -12,6 +12,7 @@ const Tutorial = () => {
     const [tutorialData, setTutorialData] = useState(null);
     const [error, setError] = useState("");
     const [searchParams] = useSearchParams();
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
     const previousUrl = location.state?.previousUrl || "/";
     const { tutorialId: pathTutorialId } = useParams();
@@ -23,7 +24,7 @@ const Tutorial = () => {
         const getTutorialData = async () => {
             try {
                 setError("");
-
+                setLoading(true);
                 if (location.state?.tutorial) {
                     setTutorialData(location.state.tutorial);
                     console.log("Using tutorial data from location state:", location.state.tutorial);
@@ -43,7 +44,6 @@ const Tutorial = () => {
                     const matchesId = tutorialId && String(tutorialData.id) === String(tutorialId);
                     const matchesSlug = slug && tutorialData.slug === slug;
                     const matchesModel = !model || tutorialData.model?.name === model;
-
                     return (matchesId || matchesSlug) && matchesModel;
                 });
 
@@ -57,6 +57,10 @@ const Tutorial = () => {
             } catch (error) {
                 console.error("Error fetching tutorial data:", error);
                 setError("Something went wrong while loading this tutorial.");
+            } finally {
+                setTimeout(()=> {
+                    setLoading(false);
+                }, 1000);
             }
         };
 
@@ -65,15 +69,15 @@ const Tutorial = () => {
     return (
         <div className="tutorial-page-header">
             <div className="max-w-2xl mx-auto py-8">
-                <span className="bg-[#49D4C6] p-2 rounded-full mb-5 inline-block">
+                <span className="bg-white p-2 rounded-full mb-5 inline-block">
                     <Link to={previousUrl} className="text-black">
                         <PiArrowLeftLight size={24} />
                     </Link>
                 </span>
             </div>
-            {
+            { loading ? <TutorialDetailCard /> :
                 tutorialData ? (
-                    <div className="tutorial-content-card max-w-2xl mx-auto bg-white shadow-md">
+                    <div className="tutorial-content-card max-w-2xl mx-auto bg-[#F8FAFC] shadow-md">
                         <div className="video-wrapper bg-black">
                             <CustomVideoPlayer />
                         </div>
@@ -116,22 +120,22 @@ const Tutorial = () => {
                                 </div>
                             </div>
                             <div className="px-5 border-t border-gray-200 py-3">
-                            <p className="text-sm">Was this helpful?</p>
-                            <div className="flex items-center gap-3 mt-2">
-                                <button className="flex items-center gap-1 bg-gray-100 p-3 rounded-full">
-                                    <LuThumbsUp />
-                                </button>
-                                <button className="flex items-center gap-1 bg-gray-100 p-3 rounded-full">
-                                    <LuThumbsDown />
-                                </button>
+                                <p className="text-sm">Was this helpful?</p>
+                                <div className="flex items-center gap-3 mt-2">
+                                    <button className="flex items-center gap-1 bg-gray-100 p-3 rounded-full">
+                                        <LuThumbsUp />
+                                    </button>
+                                    <button className="flex items-center gap-1 bg-gray-100 p-3 rounded-full">
+                                        <LuThumbsDown />
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        </div>
-                        
+
                     </div>
                 ) : (
                     <div className="error-message bg-red-100 text-red-700 p-4 rounded">
-                        {error || <TutorialCardSkeleton />}
+                        {error || <TutorialDetailCard />}
                     </div>
                 )
             }
