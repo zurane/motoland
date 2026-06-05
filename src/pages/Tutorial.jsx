@@ -182,7 +182,3 @@ const Tutorial = () => {
 };
 
 export default Tutorial;
-
-{
-  /* <p >{tutorialData.model.manufacturer?.name} {tutorialData?.model?.name}</p> */
-}
