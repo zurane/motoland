@@ -41,12 +41,12 @@ const TutorialCard = ({ item }) => {
               {item.model && item.model.name}
               <br />
               <div className="card-chips">
-                <span className="results-meta-type">
+                <span className="results-meta-type rounded-full">
                   {item.model.type && `  ${item.model.type}`} •{" "}
                   {item.model.modelEngineSize &&
                     `${item.model.modelEngineSize.toFixed(1)}L`}
                 </span>
-                <span className="model-variant">
+                <span className="model-variant rounded-full">
                   {item.model.yearFrom && `${item.model.yearFrom}`}{" "}
                   {item.model.modelVariant && ` ${item.model.modelVariant}`}
                 </span>

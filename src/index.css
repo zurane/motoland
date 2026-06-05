@@ -6,8 +6,7 @@
 }
 
 .vehicle-search-hero {
-  background: #49d4c6;
-  background-image: url("https://res.cloudinary.com/dcphsyjhi/image/upload/v1778245386/mechanic_nxuyvd.jpg");
+  background-image: url("https://res.cloudinary.com/dcphsyjhi/image/upload/c_auto,h_677,w_2000/e_improve:outdoor:16/f_webp/q_auto:best/cs_srgb/mechanic_nxuyvd.jpg");
   background-position: center;
   background-size: cover;
   padding: 0 0 120px 0;
@@ -535,7 +534,7 @@
 
 /* Tutorial Page */
 .tutorial-page-header {
-  background: #1F416F;
+  background: #55D6BE;
   height: 508px !important;
   position: relative;
 }
