@@ -67,7 +67,7 @@ const Tutorial = () => {
         setTutorialData(matchedTutorial);
       } catch (error) {
         console.error("Error fetching tutorial data:", error);
-        setError("Something went wrong while loading this tutorial.");
+        setError("Something went wrong while loading this tutorial.")
       } finally {
         setTimeout(() => {
           setLoading(false);
@@ -80,7 +80,7 @@ const Tutorial = () => {
   return (
     <div className="tutorial-page-header">
       <div className="max-w-2xl mx-auto py-8">
-        <span className="bg-white p-2 rounded-full mb-5 inline-block">
+        <span className="bg-[#00ddef] p-2 rounded-full mb-5 inline-block">
           <Link to={previousUrl} className="text-black">
             <PiArrowLeftLight size={24} />
           </Link>
