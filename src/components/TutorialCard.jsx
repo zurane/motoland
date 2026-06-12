@@ -35,11 +35,12 @@ const TutorialCard = ({ item }) => {
           <h2 className="result-title">{item.title}</h2>
           <div className="result-meta">
             <div>
-              {item.model &&
-                item.model.manufacturer &&
-                item.model.manufacturer.name}{" "}
-              {item.model && item.model.name}
-              <br />
+              <span className="result-meta-brand">
+                {item.model &&
+                  item.model.manufacturer &&
+                  item.model.manufacturer.name}{" "}
+                {item.model && item.model.name}
+              </span>
               <div className="card-chips">
                 <span className="results-meta-type rounded-full">
                   {item.model.type && `  ${item.model.type}`} •{" "}

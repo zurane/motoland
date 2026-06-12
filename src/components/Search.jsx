@@ -1,11 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import { FiSearch, FiChevronDown,FiChevronRight } from "react-icons/fi";
+import { FiSearch, FiChevronDown, FiChevronRight } from "react-icons/fi";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { algoliasearch } from "algoliasearch";
-
-
 
 const client = algoliasearch(
   import.meta.env.VITE_ALGOLIA_APP_ID,
