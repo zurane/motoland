@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import { FiSearch, FiChevronDown } from "react-icons/fi";
+import { FiSearch, FiChevronDown,FiChevronRight } from "react-icons/fi";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { algoliasearch } from "algoliasearch";
@@ -166,7 +166,7 @@ export default function VehicleSearch() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onClick={() => setDropdownOpen(true)}
-                placeholder="Select your vehicle make and model"
+                placeholder="Choose your vehicle make and model"
                 className="vehicle-search-input"
               />
               <span className="vehicle-search-icon">
@@ -190,7 +190,7 @@ export default function VehicleSearch() {
                                 className="vehicle-models-button"
                                 onClick={() => toggleBrand(item.name)}
                               >
-                                Models
+                                Choose a Model
                                 <span
                                   className={`vehicle-chevron ${isOpen ? "open" : ""}`}
                                 >
@@ -252,7 +252,7 @@ export default function VehicleSearch() {
                 onFocus={() => {
                   if (hints.length > 0) setShowHints(true);
                 }}
-                placeholder="Please describe your vehicle issue"
+                placeholder="What needs fixing? (e.g., replace air filter)..."
                 className="vehicle-issue-input"
                 style={{ width: "100%" }}
               />
@@ -260,34 +260,13 @@ export default function VehicleSearch() {
               {/* 5. The floating hints dropdown with BULLETPROOF INLINE CSS */}
               {showHints && hints.length > 0 && (
                 <ul
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: "0",
-                    width: "100%",
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e5e7eb",
-                    borderRadius: "8px",
-                    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-                    marginTop: "5px",
-                    zIndex: 9999, // Forces it above EVERYTHING
-                    maxHeight: "240px",
-                    overflowY: "auto",
-                    listStyle: "none",
-                    padding: "0",
-                    textAlign: "left"
-                  }}
+                  className="algolia-hints-dropdown"
                 >
                   {hints.map((hint) => (
                     <li
                       key={hint.objectID}
                       onClick={() => handleHintClick(hint.title)}
-                      style={{
-                        padding: "12px 16px",
-                        borderBottom: "1px solid #f3f4f6",
-                        cursor: "pointer",
-                        transition: "background-color 0.2s"
-                      }}
+                      className="algolia-hint-item"
                       onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f9fafb"}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#ffffff"}
                     >
@@ -310,7 +289,7 @@ export default function VehicleSearch() {
               className="vehicle-search-button"
               disabled={isSubmitting}
             >
-              {isSubmitting ? <ClipLoader size={20} color="#ffffff" /> : <FiSearch size={30} />}
+              {isSubmitting ? <ClipLoader size={20} color="#ffffff" /> : "Find Tutorials"}
             </button>
           </div>
         </div>
